@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SendWelcomeEmail;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -9,6 +10,8 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller {
     public function login() {
+        SendWelcomeEmail::dispatch('example@demo.com')->delay(now()->addMinute(1));
+
         return view('auth.login');
     }
 
